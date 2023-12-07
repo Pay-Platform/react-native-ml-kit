@@ -238,8 +238,14 @@ RCT_EXPORT_METHOD(detect: (nonnull NSString*)url
                   withOptions: (NSDictionary*)optionsDict
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
-{
-    NSURL *_url = [NSURL URLWithString:url];
+{    
+    NSURL *_url = nil;
+
+    if ([path containsString:@"http://"] || [path containsString:@"https://"]) {
+        _url = [NSURL URLWithString:url];
+    } else {
+        _url = [NSURL fileURLWithPath:url];
+    }
     NSData *imageData = [NSData dataWithContentsOfURL:_url];
     UIImage *image = [UIImage imageWithData:imageData];
     MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:image];
