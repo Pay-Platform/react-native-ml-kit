@@ -241,7 +241,7 @@ RCT_EXPORT_METHOD(detect: (nonnull NSString*)url
 {    
     NSURL *_url = nil;
 
-    if ([path containsString:@"http://"] || [path containsString:@"https://"]) {
+    if ([url containsString:@"http://"] || [url containsString:@"https://"]) {
         _url = [NSURL URLWithString:url];
     } else {
         _url = [NSURL fileURLWithPath:url];
